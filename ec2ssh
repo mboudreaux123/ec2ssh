@@ -1,0 +1,36 @@
+# This is a bash or zsh function to speed the process of SSH into EC2 instance
+# Copy the following code into your .zshrc or .bashrc config
+
+# SSH into an EC2 instance quicker
+# NOTE: Won't work if ec2 default username is changed from "ec2-user"
+# Usage: ec2ssh ec2-ip-address path-to-keyfile
+# Example: ec2ssh 192.168.1.1 ~/Downloads/key.pem
+
+function ec2ssh() {
+    # Assign default value if privatekey not specified
+    if [ -z "$2" ]
+    then
+        2="$HOME/Downloads/privatekey.pem"
+    fi
+
+    # Check if a private key exists at a specified directory, exit otherwise
+    if [[ ! -e $2]]
+    then
+        print -P "%F{red}Invalid keyfile, check if exists at $2"
+        return
+    fi
+
+    # Show user the keyfile location
+    echo "SSH into EC2"
+    echo "Keyfile: $2"
+
+    # Change permissions to prevent permission error
+    chmod 400 $2
+
+    # Connect to an EC2 instance using the specified information
+    echo "Connecting to EC2 @ $1...\n"
+    ssh -i "$2" ec2-user@"$1"
+}
+
+alias ec2="ec2ssh"
+alias ec="ec2ssh"
