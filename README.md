@@ -1,6 +1,6 @@
 # ec2ssh
 
-A bash/zsh function to SSH into an EC2 instance quicker.
+A bash/zsh function to SSH into an AWS Elastic Compute Cloud(EC2) instance quicker.
 
 NOTE: Won't work if ec2 default username is changed from "ec2-user".
 
