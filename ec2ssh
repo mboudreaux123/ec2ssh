@@ -14,7 +14,7 @@ function ec2ssh() {
     fi
 
     # Check if a private key exists at a specified directory, exit otherwise
-    if [[ ! -e $2]]
+    if [[ ! -e $2 ]]
     then
         print -P "%F{red}Invalid keyfile, check if exists at $2"
         return
